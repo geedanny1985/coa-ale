@@ -116,32 +116,22 @@ bool ALE::OnGossipHello(Player* pPlayer, Creature* pCreature)
 bool ALE::OnGossipSelect(Player* pPlayer, Creature* pCreature, uint32 sender, uint32 action)
 {
     START_HOOK_WITH_RETVAL(CreatureGossipBindings, GOSSIP_EVENT_ON_SELECT, pCreature->GetEntry(), false);
-    auto originalMenu = *pPlayer->PlayerTalkClass;
     pPlayer->PlayerTalkClass->ClearMenus();
     Push(pPlayer);
     Push(pCreature);
     Push(sender);
     Push(action);
-    auto preventDefault = CallAllFunctionsBool(CreatureGossipBindings, key, true);
-    if (!preventDefault) {
-        *pPlayer->PlayerTalkClass = originalMenu;
-    }
-    return preventDefault;
+    return CallAllFunctionsBool(CreatureGossipBindings, key, true);
 }
 
 bool ALE::OnGossipSelectCode(Player* pPlayer, Creature* pCreature, uint32 sender, uint32 action, const char* code)
 {
     START_HOOK_WITH_RETVAL(CreatureGossipBindings, GOSSIP_EVENT_ON_SELECT, pCreature->GetEntry(), false);
-    auto originalMenu = *pPlayer->PlayerTalkClass;
     pPlayer->PlayerTalkClass->ClearMenus();
     Push(pPlayer);
     Push(pCreature);
     Push(sender);
     Push(action);
     Push(code);
-    auto preventDefault = CallAllFunctionsBool(CreatureGossipBindings, key, true);
-    if (!preventDefault) {
-        *pPlayer->PlayerTalkClass = originalMenu;
-    }
-    return preventDefault;
+    return CallAllFunctionsBool(CreatureGossipBindings, key, true);
 }
